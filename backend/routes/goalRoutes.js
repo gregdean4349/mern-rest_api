@@ -7,10 +7,15 @@ const {
   deleteGoal,
 } = require('../controllers/goalController');
 
-router.route('/').get(getGoals).post(setGoal);
-router.route('/:id').put(updateGoal).delete(deleteGoal);
+//* middleware route protection added as 1st argument.
+const { protect } = require('../middleware/authMiddleware');
 
-// router.get('/', getGoals);
+router.route('/').get(protect, getGoals).post(protect, setGoal);
+router.route('/:id').put(protect, updateGoal).delete(protect, deleteGoal);
+
+//* CRUD - Create Read Update Delete or GET POST PUT DELETE
+
+// router.get('/', protect, getGoals);
 
 // router.post('/', setGoal);
 
