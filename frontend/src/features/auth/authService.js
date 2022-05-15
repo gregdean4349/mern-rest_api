@@ -1,0 +1,40 @@
+import axios from 'axios';
+
+const API_URL = '/api/users/';
+
+//* Retrieve user data from MongoDB
+const register = async (userData) => {
+  const response = await axios.post(API_URL, userData);
+
+  //* Set localStorage with user data
+  if (response.data) {
+    localStorage.setItem('user', JSON.stringify(response.data));
+  }
+
+  return response.data;
+};
+
+//* Login the user
+const login = async (userData) => {
+  const response = await axios.post(API_URL + 'login', userData);
+
+  //* Set localStorage with user data
+  if (response.data) {
+    localStorage.setItem('user', JSON.stringify(response.data));
+  }
+
+  return response.data;
+};
+
+//* Logout the user by clearing the localStorage
+const logout = () => {
+  localStorage.removeItem('user');
+};
+
+const authService = {
+  register,
+  logout,
+  login,
+};
+
+export default authService;
