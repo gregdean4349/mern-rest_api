@@ -7,6 +7,7 @@ const { errorHandler } = require('./middleware/errorMiddleware');
 const app = express();
 const connectDB = require('./config/db');
 
+//* Connect to MongoDB
 connectDB();
 
 app.use(express.json());
